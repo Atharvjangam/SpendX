@@ -1,10 +1,22 @@
-# TODO: Fix Finance Score Auto-Update
+## 📸 Screenshots
 
-## Tasks
-- [x] Create FinancialContext.jsx for global financial data management
-- [x] Update FinancialHealth.jsx to fetch data and calculate score dynamically
-- [x] Integrate Income.jsx with FinancialContext
-- [x] Integrate Expense.jsx with FinancialContext
-- [x] Wrap App with FinancialProvider
-- [x] Test automatic updates when adding income/expense
-- [x] Optimize performance to avoid unnecessary re-renders
+### Login Page
+![Login](screenshots/login.png)
+
+### SignUp Page
+![SignUp](screenshots/signup.png)
+
+### Dashboard
+![Dashboard](screenshots/dashboard.png)
+
+### Add Income
+![Add Income](screenshots/income.png)
+
+### Add Expense
+![Add Expense](screenshots/expense.png)
+
+### Bank Page
+![Bank](screenshots/bank.png)
+
+### Finacial Score Page
+![Sorce](screenshots/score.png)
