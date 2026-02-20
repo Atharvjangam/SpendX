@@ -255,37 +255,58 @@ const Home = () => {
 
           {/* Right Card: Last 30 Days Expense Bar Graph */}
           <div className="bg-white rounded-xl shadow-sm p-4 sm:p-6">
-            <h2 className="text-lg sm:text-xl font-semibold text-gray-800 mb-4 sm:mb-6">Expenses – Last 30 Days</h2>
+            <h2 className="text-lg sm:text-xl font-semibold text-gray-800 mb-4 sm:mb-6">Expenses - Last 30 Days</h2>
             <div className="h-64 sm:h-80">
-              <ResponsiveContainer width="100%" height="100%">
-                <BarChart data={dashboardData.expenseDataLast30Days}>
-                  <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
-                  <XAxis
-                    dataKey="date"
-                    tick={{ fontSize: 12, fill: '#6b7280' }}
-                    tickFormatter={(value) => moment(value).format('MM/DD')}
-                  />
-                  <YAxis tick={{ fontSize: 12, fill: '#6b7280' }} />
-                  <Tooltip
-                    formatter={(value) => [`₹${value.toLocaleString()}`, 'Amount']}
-                    labelFormatter={(value) => moment(value).format('MMM DD, YYYY')}
-                    contentStyle={{ backgroundColor: '#1f2937', color: '#f9fafb', border: 'none', borderRadius: '8px' }}
-                    labelStyle={{ color: '#f9fafb' }}
-                  />
-                  <defs>
-  <linearGradient id="barGradient" x1="0" y1="0" x2="0" y2="1">
-    <stop offset="5%" stopColor="#E9D5FF" stopOpacity={1} />
-    <stop offset="100%" stopColor="#7E22CE" stopOpacity={0.85} />
-  </linearGradient>
-</defs>
-
-<Bar
-  dataKey="amount"
-  fill="url(#barGradient)"
-  radius={[4, 4, 0, 0]}
-/>
-                </BarChart>
-              </ResponsiveContainer>
+              {dashboardData.expenseDataLast30Days && dashboardData.expenseDataLast30Days.length > 0 ? (
+                <ResponsiveContainer width="100%" height="100%">
+                  <BarChart data={dashboardData.expenseDataLast30Days} margin={{ top: 10, right: 10, left: -10, bottom: 0 }}>
+                    <defs>
+                      <linearGradient id="barGradient" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="5%" stopColor="#E9D5FF" stopOpacity={1} />
+                        <stop offset="100%" stopColor="#7E22CE" stopOpacity={0.85} />
+                      </linearGradient>
+                    </defs>
+                    <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" vertical={false} />
+                    <XAxis
+                      dataKey="date"
+                      tick={{ fontSize: 11, fill: '#6b7280' }}
+                      tickFormatter={(value) => {
+                        const date = new Date(value);
+                        return !isNaN(date) ? moment(date).format('MM/DD') : value;
+                      }}
+                      axisLine={{ stroke: '#e5e7eb' }}
+                      tickLine={{ stroke: '#e5e7eb' }}
+                    />
+                    <YAxis 
+                      tick={{ fontSize: 12, fill: '#6b7280' }}
+                      axisLine={{ stroke: '#e5e7eb' }}
+                      tickLine={{ stroke: '#e5e7eb' }}
+                      tickFormatter={(value) => `₹${value}`}
+                    />
+                    <Tooltip
+                      formatter={(value) => [`₹${value.toLocaleString()}`, 'Amount']}
+                      labelFormatter={(value) => {
+                        const date = new Date(value);
+                        return !isNaN(date) ? moment(date).format('MMM DD, YYYY') : value;
+                      }}
+                      contentStyle={{ backgroundColor: '#1f2937', color: '#f9fafb', border: 'none', borderRadius: '8px' }}
+                      labelStyle={{ color: '#f9fafb' }}
+                    />
+                    <Bar
+                      dataKey="amount"
+                      fill="url(#barGradient)"
+                      radius={[4, 4, 0, 0]}
+                    />
+                  </BarChart>
+                </ResponsiveContainer>
+              ) : (
+                <div className="h-full flex items-center justify-center text-gray-500">
+                  <div className="text-center">
+                    <LuTrendingDown className="w-12 h-12 mx-auto mb-2 text-gray-300" />
+                    <p>No expenses in the last 30 days</p>
+                  </div>
+                </div>
+              )}
             </div>
           </div>
         </div>
